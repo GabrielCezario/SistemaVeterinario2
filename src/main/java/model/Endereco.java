@@ -32,6 +32,10 @@ public class Endereco implements BaseEntity{
 		return id;
 	}	
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getEstado() {
 		return estado;
 	}
