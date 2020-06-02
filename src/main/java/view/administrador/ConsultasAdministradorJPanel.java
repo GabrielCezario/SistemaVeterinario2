@@ -6,12 +6,12 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 
-public class PerfilAdministradorJPanel extends JPanel {
+public class ConsultasAdministradorJPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public PerfilAdministradorJPanel() {
+	public ConsultasAdministradorJPanel() {
 		setLayout(null);
 		
 		JPanel panelPerfil = new JPanel();
@@ -72,4 +72,5 @@ public class PerfilAdministradorJPanel extends JPanel {
 		panelMenu.add(btnAdministradores);
 
 	}
+
 }

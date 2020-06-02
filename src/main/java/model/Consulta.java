@@ -2,15 +2,36 @@ package model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Consulta")
 public class Consulta implements BaseEntity{
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@ManyToOne
 	private Pet pet;
+	
+	@ManyToOne
 	private Veterinario veterinario;
+	
+	@Column(name = "dataConsulta")
 	private Date dataConsulta;
+	
+	@Column(name = "descricaoConsulta")
 	private String descricaoConsulta;
 	
 	public Consulta() {
+		
 	}
 
 	public Consulta(Integer id) {

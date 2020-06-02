@@ -1,26 +1,34 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Veterinario")
 public class Veterinario extends Pessoa {
 	
-	private TipoEspecialidade tipoEspecialidade;
+	@OneToMany
+	private List<TipoEspecialidade> tipoEspecialidade;
 
 	public Veterinario() {
 		
 	}
 	
-	public Veterinario(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco, TipoEspecialidade tipoEspecialidade) {
-		super(nome, sobrenome, cpf, telefone, dataNascimento, endereco);
+	public Veterinario(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco, Login login, List<TipoEspecialidade> tipoEspecialidade) {
+		super(nome, sobrenome, cpf, telefone, dataNascimento, endereco, login);
 		
 		this.tipoEspecialidade = tipoEspecialidade;
 	}
 
-	public TipoEspecialidade getEspecialidade() {
+	public List<TipoEspecialidade> getTipoEspecialidade() {
 		return tipoEspecialidade;
 	}
 
-	public void setEspecialidade(TipoEspecialidade tipoEspecialidade) {
+	public void setTipoEspecialidade(List<TipoEspecialidade> tipoEspecialidade) {
 		this.tipoEspecialidade = tipoEspecialidade;
 	}
 	

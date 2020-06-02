@@ -2,15 +2,43 @@ package model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Pessoa")
 public class Pessoa implements BaseEntity{
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "nome")
 	private String nome;
+	
+	@Column(name = "sobrenome")
 	private String sobrenome;
+	
+	@Column(name = "cpf")
 	private String cpf;
+	
+	@Column(name = "telefone")
 	private String telefone;
+	
+	@Column(name = "dataNascimento")
 	private Date dataNascimento;
+	
+	@ManyToOne
 	private Endereco endereco;
+	
+	@OneToOne
+	private Login login;
 	
 	public Pessoa() {
 		
@@ -20,13 +48,14 @@ public class Pessoa implements BaseEntity{
 		this.id = id;
 	}
 
-	public Pessoa(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco) {
+	public Pessoa(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco, Login login) {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
 		this.endereco = endereco;
+		this.login = login;
 	}
 	
 	@Override
@@ -84,6 +113,14 @@ public class Pessoa implements BaseEntity{
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 	
 }

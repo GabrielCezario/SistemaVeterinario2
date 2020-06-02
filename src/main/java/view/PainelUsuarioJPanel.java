@@ -2,8 +2,8 @@ package view;
 
 import javax.swing.JPanel;
 
+import view.administrador.LoginAdministradorJPanel;
 import view.atendente.LoginAtendenteJPanel;
-import view.atendente.PerfilAtendenteJPanel;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -51,6 +51,12 @@ public class PainelUsuarioJPanel extends JPanel {
 		add(btnVeterinario);
 		
 		JButton btnAdministrador = new JButton("Administrador");
+		btnAdministrador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Main.getFrame().setContentPane(new LoginAdministradorJPanel());
+				Main.getFrame().getContentPane().revalidate();
+			}
+		});
 		btnAdministrador.setFont(new Font("Arial Black", Font.BOLD, 12));
 		btnAdministrador.setBounds(558, 291, 150, 32);
 		add(btnAdministrador);

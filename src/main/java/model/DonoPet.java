@@ -2,6 +2,11 @@ package model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "DonoPet")
 public class DonoPet extends Pessoa implements BaseEntity{
 	
 	public DonoPet() {
@@ -12,8 +17,8 @@ public class DonoPet extends Pessoa implements BaseEntity{
 		super(id);
 	}
 	
-	public DonoPet(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco) {
-		super(nome, sobrenome, cpf, telefone, dataNascimento, endereco);
+	public DonoPet(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco, Login login) {
+		super(nome, sobrenome, cpf, telefone, dataNascimento, endereco, login);
 	}
 
 }
