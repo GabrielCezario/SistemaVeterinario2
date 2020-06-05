@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +22,9 @@ public class Login implements BaseEntity{
 	@Column(name = "senha")
 	private String senha;
 	
+	@OneToOne(mappedBy = "login")
+	private Pessoa pessoa;
+	
 	public Login() {
 		
 	}
@@ -29,9 +33,7 @@ public class Login implements BaseEntity{
 		this.id = id;
 	}
 
-	public Login(Integer id, String login, String senha) {
-		super();
-		this.id = id;
+	public Login(String login, String senha) {
 		this.login = login;
 		this.senha = senha;
 	}
@@ -58,6 +60,14 @@ public class Login implements BaseEntity{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}	
 	
 }

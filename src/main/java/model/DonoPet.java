@@ -17,8 +17,8 @@ public class DonoPet extends Pessoa implements BaseEntity{
 		super(id);
 	}
 	
-	public DonoPet(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco, Login login) {
-		super(nome, sobrenome, cpf, telefone, dataNascimento, endereco, login);
+	public DonoPet(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco) {
+		super(nome, sobrenome, cpf, telefone, dataNascimento, endereco);
 	}
 
 }

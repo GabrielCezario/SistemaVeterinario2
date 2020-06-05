@@ -2,11 +2,13 @@ package model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,13 +30,16 @@ public class Pet implements BaseEntity{
 	@Column(name = "peso")
 	private double peso;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "cod_tipo")
 	private TipoAnimal tipoAnimal;
 	
 	@ManyToOne
+	@JoinColumn(name = "cod_dono")
 	private DonoPet donoPet;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fichaMedica_id")
 	private FichaMedica fichaMedica;
 	
 	public Pet() {

@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,11 +19,8 @@ public class FichaMedica implements BaseEntity {
 	@Column(name = "diagnostico")
 	private String diagnostico;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "fichaMedica")
 	private Pet pet;
-	
-	@ManyToOne
-	private Veterinario veterinario;
 	
 	public FichaMedica() {
 		
@@ -34,10 +30,9 @@ public class FichaMedica implements BaseEntity {
 		this.id = id;
 	}
 
-	public FichaMedica(String diagnostico, Pet pet, Veterinario veterinario) {
+	public FichaMedica(String diagnostico, Pet pet) {
 		this.diagnostico = diagnostico;
 		this.pet = pet;
-		this.veterinario = veterinario;
 	}
 	
 	@Override
@@ -64,13 +59,5 @@ public class FichaMedica implements BaseEntity {
 	public void setPet(Pet pet) {
 		this.pet = pet;
 	}
-
-	public Veterinario getVeterinario() {
-		return veterinario;
-	}
-
-	public void setVeterinario(Veterinario veterinario) {
-		this.veterinario = veterinario;
-	}	
 	
 }

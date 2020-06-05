@@ -4,14 +4,20 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Veterinario")
 public class Veterinario extends Pessoa {
 	
-	@OneToMany
+	@ManyToMany
+	@JoinTable(
+			name = "veterinario_tipoEspecialidade", 
+			joinColumns = @JoinColumn(name = "veterinario_id"), 
+			inverseJoinColumns = @JoinColumn(name = "tipoEspecialidade_id"))
 	private List<TipoEspecialidade> tipoEspecialidade;
 
 	public Veterinario() {

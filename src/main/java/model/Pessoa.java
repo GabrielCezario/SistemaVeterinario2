@@ -2,11 +2,13 @@ package model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -35,9 +37,11 @@ public class Pessoa implements BaseEntity{
 	private Date dataNascimento;
 	
 	@ManyToOne
+	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "login_id")
 	private Login login;
 	
 	public Pessoa() {
@@ -46,6 +50,15 @@ public class Pessoa implements BaseEntity{
 	
 	public Pessoa(Integer id) {
 		this.id = id;
+	}
+	
+	public Pessoa(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco) {
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.cpf = cpf;
+		this.telefone = telefone;
+		this.dataNascimento = dataNascimento;
+		this.endereco = endereco;
 	}
 
 	public Pessoa(String nome, String sobrenome, String cpf, String telefone, Date dataNascimento, Endereco endereco, Login login) {
