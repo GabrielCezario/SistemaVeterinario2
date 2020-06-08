@@ -1,24 +1,27 @@
 package view.atendente;
 
-import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import model.Atendente;
 import view.Main;
 import view.PainelUsuarioJPanel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class LoginAtendenteJPanel extends JPanel {
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField txtLogin;
+	private JPasswordField txtSenha;
+	
+	protected Atendente atendenteTela;
 
 	/**
 	 * Create the panel.
@@ -41,19 +44,19 @@ public class LoginAtendenteJPanel extends JPanel {
 		lblLogin.setBounds(295, 291, 46, 14);
 		add(lblLogin);
 		
-		textField = new JTextField();
-		textField.setBounds(295, 308, 200, 28);
-		add(textField);
-		textField.setColumns(10);
+		txtLogin = new JTextField();
+		txtLogin.setBounds(295, 308, 200, 28);
+		add(txtLogin);
+		txtLogin.setColumns(10);
 		
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setFont(new Font("Arial Black", Font.BOLD, 12));
 		lblSenha.setBounds(295, 347, 46, 14);
 		add(lblSenha);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(295, 363, 200, 28);
-		add(passwordField);
+		txtSenha = new JPasswordField();
+		txtSenha.setBounds(295, 363, 200, 28);
+		add(txtSenha);
 		
 		JButton btnNewButton = new JButton("Entrar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -71,6 +74,7 @@ public class LoginAtendenteJPanel extends JPanel {
 		panelErro.setBounds(0, 37, 800, 40);
 		add(panelErro);
 		panelErro.setLayout(null);
+		panelErro.setVisible(false);
 		
 		JLabel lblNewLabel = new JLabel("Os dados de Login e/ou Senha est\u00E3o incorretos");
 		lblNewLabel.setForeground(Color.WHITE);

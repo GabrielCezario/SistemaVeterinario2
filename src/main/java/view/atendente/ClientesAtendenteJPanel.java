@@ -1,23 +1,31 @@
 package view.atendente;
 
-import javax.swing.JPanel;
-
-import view.Main;
-import view.PainelJPanel;
-
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import controller.impl.ControlladorDonoPet;
+import exception.ObjetoNulo;
+import model.Atendente;
+import model.DonoPet;
+import view.Main;
+import view.PainelUsuarioJPanel;
+
 public class ClientesAtendenteJPanel extends JPanel {
 	private JTextField txtNomeCliente;
+	
+	protected Atendente atendenteTela;
+	protected DonoPet donoPetTela;
 
 	/**
 	 * Create the panel.
@@ -39,7 +47,7 @@ public class ClientesAtendenteJPanel extends JPanel {
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.getFrame().setContentPane(new PainelJPanel());
+				Main.getFrame().setContentPane(new PainelUsuarioJPanel());
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
@@ -83,7 +91,7 @@ public class ClientesAtendenteJPanel extends JPanel {
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
-		btnRelatorios.setBounds(0, 82, 200, 41);
+		btnRelatorios.setBounds(0, 121, 200, 41);
 		panelMenu.add(btnRelatorios);
 		
 		JButton btnDados = new JButton("Dados Atendente");
@@ -94,8 +102,21 @@ public class ClientesAtendenteJPanel extends JPanel {
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
-		btnDados.setBounds(0, 123, 200, 41);
+		btnDados.setBounds(0, 162, 200, 41);
 		panelMenu.add(btnDados);
+		
+		JButton btnPet = new JButton("Pet");
+		btnPet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Main.getFrame().setContentPane(new PetAtendenteJPanel());
+				Main.getFrame().getContentPane().revalidate();
+				
+			}
+		});
+		btnPet.setFont(new Font("Arial Black", Font.BOLD, 12));
+		btnPet.setBounds(0, 81, 200, 41);
+		panelMenu.add(btnPet);
 		
 		JLabel lblClientes = new JLabel("Clientes");
 		lblClientes.setFont(new Font("Arial Black", Font.BOLD, 12));
@@ -106,10 +127,22 @@ public class ClientesAtendenteJPanel extends JPanel {
 		scrollPane.setBounds(210, 133, 367, 456);
 		add(scrollPane);
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
+		JList listDonoPet = new JList();
+		scrollPane.setViewportView(listDonoPet);
+		
+		ControlladorDonoPet controlladorDonoPet = new ControlladorDonoPet();
+		List<DonoPet> listaDonoPet = controlladorDonoPet.listarDonoPets();
+		listDonoPet.setListData(listaDonoPet.toArray());
 		
 		JButton btnCadastrarCliente = new JButton("Cadastrar");
+		btnCadastrarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Main.getFrame().setContentPane(new CadastroClientesAtendenteJPanel());
+				Main.getFrame().getContentPane().revalidate();
+				
+			}
+		});
 		btnCadastrarCliente.setForeground(Color.WHITE);
 		btnCadastrarCliente.setFont(new Font("Arial Black", Font.BOLD, 12));
 		btnCadastrarCliente.setBackground(new Color(0, 153, 204));
@@ -127,10 +160,29 @@ public class ClientesAtendenteJPanel extends JPanel {
 		txtNomeCliente.setColumns(10);
 		
 		JButton btnBuscarCliente = new JButton("Buscar");
+		btnBuscarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String nome = txtNomeCliente.getText();
+				
+				ControlladorDonoPet controlladorDonoPet = new ControlladorDonoPet();
+				List<DonoPet> listaDonoPet = controlladorDonoPet.listarDonoPetsPorNome(nome);
+				listDonoPet.setListData(listaDonoPet.toArray());
+				
+			}
+		});
 		btnBuscarCliente.setBounds(488, 104, 89, 23);
 		add(btnBuscarCliente);
 		
 		JButton btnAlterarCliente = new JButton("Alterar");
+		btnAlterarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Main.getFrame().setContentPane(new CadastroClientesAtendenteJPanel());
+				Main.getFrame().getContentPane().revalidate();
+				
+			}
+		});
 		btnAlterarCliente.setFont(new Font("Arial Black", Font.BOLD, 12));
 		btnAlterarCliente.setForeground(Color.WHITE);
 		btnAlterarCliente.setBackground(new Color(0, 153, 204));
@@ -138,6 +190,23 @@ public class ClientesAtendenteJPanel extends JPanel {
 		add(btnAlterarCliente);
 		
 		JButton btnDeletarCliente = new JButton("Deletar");
+		btnDeletarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DonoPet donoPet = (DonoPet) listDonoPet.getSelectedValue();
+				
+				try {
+					ControlladorDonoPet controlladorDonoPet = new ControlladorDonoPet();
+					controlladorDonoPet.deletarDonoPet(donoPet);
+					
+					List<DonoPet> listaDonoPet = controlladorDonoPet.listarDonoPets();
+					listDonoPet.setListData(listaDonoPet.toArray());
+				} catch (ObjetoNulo e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		btnDeletarCliente.setFont(new Font("Arial Black", Font.BOLD, 12));
 		btnDeletarCliente.setForeground(Color.WHITE);
 		btnDeletarCliente.setBackground(new Color(0, 153, 204));

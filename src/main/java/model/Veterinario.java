@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Veterinario extends Pessoa {
 			name = "veterinario_tipoEspecialidade", 
 			joinColumns = @JoinColumn(name = "veterinario_id"), 
 			inverseJoinColumns = @JoinColumn(name = "tipoEspecialidade_id"))
-	private List<TipoEspecialidade> tipoEspecialidade;
+	private List<TipoEspecialidade> tipoEspecialidade = new ArrayList<>();
 
 	public Veterinario() {
 		

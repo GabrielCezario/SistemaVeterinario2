@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Pessoa")
@@ -33,6 +35,7 @@ public class Pessoa implements BaseEntity{
 	@Column(name = "telefone")
 	private String telefone;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "dataNascimento")
 	private Date dataNascimento;
 	
@@ -135,5 +138,12 @@ public class Pessoa implements BaseEntity{
 	public void setLogin(Login login) {
 		this.login = login;
 	}
+
+	@Override
+	public String toString() {
+		return nome + " " + sobrenome;
+	}
+	
+	
 	
 }

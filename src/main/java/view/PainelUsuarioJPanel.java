@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import view.administrador.LoginAdministradorJPanel;
 import view.atendente.LoginAtendenteJPanel;
+import view.veterinario.LoginVeterinarioJPanel;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -46,6 +47,14 @@ public class PainelUsuarioJPanel extends JPanel {
 		add(btnAtendente);
 		
 		JButton btnVeterinario = new JButton("Veterinario");
+		btnVeterinario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Main.getFrame().setContentPane(new LoginVeterinarioJPanel());
+				Main.getFrame().getContentPane().revalidate();
+				
+			}
+		});
 		btnVeterinario.setFont(new Font("Arial Black", Font.BOLD, 12));
 		btnVeterinario.setBounds(333, 291, 150, 32);
 		add(btnVeterinario);
@@ -64,7 +73,7 @@ public class PainelUsuarioJPanel extends JPanel {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.getFrame().setContentPane(new PainelJPanel());
+				Main.getFrame().setContentPane(new InicioJPanel());
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});

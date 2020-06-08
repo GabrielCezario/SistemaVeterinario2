@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="Pet")
@@ -24,6 +26,7 @@ public class Pet implements BaseEntity{
 	@Column(name = "nome")
 	private String nome;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "dataNascimento")
 	private Date dataNascimento;
 	
@@ -35,7 +38,7 @@ public class Pet implements BaseEntity{
 	private TipoAnimal tipoAnimal;
 	
 	@ManyToOne
-	@JoinColumn(name = "cod_dono")
+	@JoinColumn(name = "donoPet_id")
 	private DonoPet donoPet;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -111,5 +114,12 @@ public class Pet implements BaseEntity{
 	public void setFichaMedica(FichaMedica fichaMedica) {
 		this.fichaMedica = fichaMedica;
 	}
+
+	@Override
+	public String toString() {
+		return this.nome;
+	}
+	
+	
 
 }

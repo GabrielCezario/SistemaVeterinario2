@@ -10,6 +10,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import view.Main;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class LoginAdministradorJPanel extends JPanel {
 	private JTextField textField;
 	private JPasswordField passwordField;
@@ -50,6 +55,14 @@ public class LoginAdministradorJPanel extends JPanel {
 		add(passwordField);
 		
 		JButton btnNewButton = new JButton("Entrar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Main.getFrame().setContentPane(new PerfilAdministradorJPanel());
+				Main.getFrame().getContentPane().revalidate();
+				
+			}
+		});
 		btnNewButton.setFont(new Font("Arial Black", Font.BOLD, 15));
 		btnNewButton.setBounds(295, 402, 200, 28);
 		add(btnNewButton);

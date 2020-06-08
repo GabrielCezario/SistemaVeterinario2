@@ -1,18 +1,21 @@
 package view.atendente;
 
-import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JButton;
-
-import view.Main;
-import view.PainelJPanel;
-
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import model.Atendente;
+import view.Main;
+import view.PainelUsuarioJPanel;
 
 public class PerfilAtendenteJPanel extends JPanel {
+	
+	protected Atendente atendenteTela;
 
 	/**
 	 * Create the panel.
@@ -34,7 +37,7 @@ public class PerfilAtendenteJPanel extends JPanel {
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.getFrame().setContentPane(new PainelJPanel());
+				Main.getFrame().setContentPane(new PainelUsuarioJPanel());
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
@@ -78,7 +81,7 @@ public class PerfilAtendenteJPanel extends JPanel {
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
-		btnRelatorios.setBounds(0, 82, 200, 41);
+		btnRelatorios.setBounds(0, 122, 200, 41);
 		panelMenu.add(btnRelatorios);
 		
 		JButton btnDadosAtendente = new JButton("Dados Atendente");
@@ -89,8 +92,17 @@ public class PerfilAtendenteJPanel extends JPanel {
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
-		btnDadosAtendente.setBounds(0, 123, 200, 41);
+		btnDadosAtendente.setBounds(0, 163, 200, 41);
 		panelMenu.add(btnDadosAtendente);
+		
+		JButton btnPet = new JButton("Pet");
+		btnPet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnPet.setFont(new Font("Arial Black", Font.BOLD, 12));
+		btnPet.setBounds(0, 82, 200, 41);
+		panelMenu.add(btnPet);
 
 	}
 }

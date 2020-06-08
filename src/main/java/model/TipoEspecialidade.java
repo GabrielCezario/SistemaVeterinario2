@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ public class TipoEspecialidade implements BaseEntity{
 	private String descricao;
 	
 	@ManyToMany(mappedBy = "tipoEspecialidade")
-	private List<Veterinario> listVeterinario;
+	private List<Veterinario> listVeterinario = new ArrayList<>();
 	
 	public TipoEspecialidade() {
 		
@@ -32,8 +33,7 @@ public class TipoEspecialidade implements BaseEntity{
 		this.id = id;
 	}
 
-	public TipoEspecialidade(Integer id, String descricao) {
-		this.id = id;
+	public TipoEspecialidade(String descricao) {
 		this.descricao = descricao;
 	}
 	
@@ -51,6 +51,21 @@ public class TipoEspecialidade implements BaseEntity{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public List<Veterinario> getListVeterinario() {
+		return listVeterinario;
+	}
+
+	public void setListVeterinario(List<Veterinario> listVeterinario) {
+		this.listVeterinario = listVeterinario;
+	}
+
+	@Override
+	public String toString() {
+		return this.descricao;
 	}	
+	
+	
 
 }

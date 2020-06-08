@@ -1,35 +1,34 @@
 package view.atendente;
 
-import javax.swing.JPanel;
+import java.awt.Button;
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JTable;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controller.impl.ControlladorConsulta;
+import model.Atendente;
+import model.Consulta;
 import view.Main;
-import view.PainelJPanel;
-
-import javax.swing.UIManager;
-import javax.swing.ListSelectionModel;
-import javax.swing.JToolBar;
-import javax.swing.JScrollPane;
-import java.awt.ScrollPane;
-import java.awt.Button;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import view.PainelUsuarioJPanel;
 
 public class ConsultasAtendenteJPanel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtPet;
+	private JTextField txtVeterinario;
 	private JTable tblConsultas;
+	
+	protected Atendente atendenteTela;
+	protected Consulta consultaTela;
 
 	/**
 	 * Create the panel.
@@ -51,7 +50,7 @@ public class ConsultasAtendenteJPanel extends JPanel {
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.getFrame().setContentPane(new PainelJPanel());
+				Main.getFrame().setContentPane(new PainelUsuarioJPanel());
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
@@ -64,10 +63,10 @@ public class ConsultasAtendenteJPanel extends JPanel {
 		lblConsultas.setBounds(210, 51, 99, 22);
 		add(lblConsultas);
 		
-		textField = new JTextField();
-		textField.setBounds(293, 97, 254, 25);
-		add(textField);
-		textField.setColumns(10);
+		txtPet = new JTextField();
+		txtPet.setBounds(293, 97, 254, 25);
+		add(txtPet);
+		txtPet.setColumns(10);
 		
 		JLabel lblNomePet = new JLabel("Pet:");
 		lblNomePet.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -79,10 +78,10 @@ public class ConsultasAtendenteJPanel extends JPanel {
 		lblVeterinario.setBounds(210, 138, 75, 14);
 		add(lblVeterinario);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(293, 133, 254, 25);
-		add(textField_1);
+		txtVeterinario = new JTextField();
+		txtVeterinario.setColumns(10);
+		txtVeterinario.setBounds(293, 133, 254, 25);
+		add(txtVeterinario);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(210, 170, 580, 419);
@@ -109,13 +108,54 @@ public class ConsultasAtendenteJPanel extends JPanel {
 		tblConsultas.getColumnModel().getColumn(0).setMinWidth(50);
 		tblConsultas.getColumnModel().getColumn(0).setMaxWidth(50);
 		
+		ControlladorConsulta ControlladorConsulta = new ControlladorConsulta();
+		List<Consulta> listaConsulta = ControlladorConsulta.listarConsultas();
+		
+		for (Consulta consulta : listaConsulta) {
+			
+			modelConsultas.addRow(new Object[] {
+					
+					consulta.getId(),
+					consulta.getPet().getNome(),
+					consulta.getPet().getDonoPet().getNome(),
+					consulta.getVeterinario().getNome()
+					
+			});
+			
+		}
+		
 		scrollPane.setViewportView(tblConsultas);
 		
 		Button btnBuscar = new Button("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String nomePet = txtPet.getText();
+				
+				ControlladorConsulta ControlladorConsulta = new ControlladorConsulta();
+				List<Consulta> listaConsulta = ControlladorConsulta.listarConsultasPorNomePet(nomePet);
+				
+				modelConsultas.setRowCount(0);
+				
+				for (Consulta consulta : listaConsulta) {
+					
+					modelConsultas.addRow(new Object[] {
+							
+							consulta.getId(),
+							consulta.getPet().getNome(),
+							consulta.getPet().getDonoPet().getNome(),
+							consulta.getVeterinario().getNome()
+							
+					});
+					
+				}
+				
+			}
+		});
 		btnBuscar.setFont(new Font("Arial Black", Font.BOLD, 12));
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setBackground(new Color(0, 153, 204));
-		btnBuscar.setBounds(553, 97, 75, 61);
+		btnBuscar.setBounds(553, 97, 87, 61);
 		add(btnBuscar);
 		
 		Button btnCadastrar = new Button("Cadastrar");
@@ -124,17 +164,14 @@ public class ConsultasAtendenteJPanel extends JPanel {
 		btnCadastrar.setBackground(new Color(0, 153, 204));
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Main.getFrame().setContentPane(new CadastrarConsultaAtendenteJPanel());
+				Main.getFrame().getContentPane().revalidate();
+				
 			}
 		});
-		btnCadastrar.setBounds(715, 97, 75, 61);
+		btnCadastrar.setBounds(703, 97, 87, 61);
 		add(btnCadastrar);
-		
-		Button btnVisualizar = new Button("Visualizar");
-		btnVisualizar.setFont(new Font("Arial Black", Font.BOLD, 12));
-		btnVisualizar.setForeground(Color.WHITE);
-		btnVisualizar.setBackground(new Color(0, 153, 204));
-		btnVisualizar.setBounds(634, 97, 75, 61);
-		add(btnVisualizar);
 		
 		JPanel panelMenu = new JPanel();
 		panelMenu.setLayout(null);
@@ -172,7 +209,7 @@ public class ConsultasAtendenteJPanel extends JPanel {
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
-		btnRelatorios.setBounds(0, 82, 200, 41);
+		btnRelatorios.setBounds(0, 122, 200, 41);
 		panelMenu.add(btnRelatorios);
 		
 		JButton btnDados = new JButton("Dados Atendente");
@@ -183,8 +220,21 @@ public class ConsultasAtendenteJPanel extends JPanel {
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});
-		btnDados.setBounds(0, 123, 200, 41);
+		btnDados.setBounds(0, 163, 200, 41);
 		panelMenu.add(btnDados);
+		
+		JButton btnPet = new JButton("Pet");
+		btnPet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Main.getFrame().setContentPane(new PetAtendenteJPanel());
+				Main.getFrame().getContentPane().revalidate();
+				
+			}
+		});
+		btnPet.setFont(new Font("Arial Black", Font.BOLD, 12));
+		btnPet.setBounds(0, 81, 200, 41);
+		panelMenu.add(btnPet);
 		
 		
 		

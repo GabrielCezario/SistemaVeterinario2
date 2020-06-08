@@ -17,7 +17,7 @@ public class InicioJPanel extends JPanel {
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Main.getFrame().setContentPane(new PainelJPanel());
+				Main.getFrame().setContentPane(new PainelUsuarioJPanel());
 				Main.getFrame().getContentPane().revalidate();
 			}
 		});

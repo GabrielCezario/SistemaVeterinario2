@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Consulta")
@@ -27,6 +29,7 @@ public class Consulta implements BaseEntity{
 	@JoinColumn(name = "veterinario_id")
 	private Veterinario veterinario;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dataConsulta")
 	private Date dataConsulta;
 	
